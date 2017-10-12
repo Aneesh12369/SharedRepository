@@ -96,12 +96,12 @@ public class UserController {
 			@RequestHeader HttpHeaders headers) {
 		String url = props.getEndPointUrl();
 
-		Object id = service.saveUser(user);
-		if (null == id) {
+		User us = service.saveUser(user);
+		if (null == us) {
 			throw new UnableToCreateResourceException("Unable to create resource");
 		}
-
-		URI uri = utils.getURI(url, 1);
+		Integer id = Integer.parseInt(us.getId());
+		URI uri = utils.getURI(url, id);
 		ResponseBean<Object> rb = new ResponseBean<>();
 		rb.setDescription("success");
 		rb.setErrorCode(0);

@@ -74,16 +74,15 @@ public class UserService {
 
 	}
 
-	public Object saveUser(User user){
+	public User saveUser(User user){
 		String url = props.getEndPointUrl();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		HttpEntity<User> entity = new HttpEntity<User>(user, headers);
-	    ResponseEntity<Object> exchange = template.exchange(url, HttpMethod.POST, entity,Object.class);
+	    ResponseEntity<User> exchange = template.exchange(url, HttpMethod.POST, entity,User.class);
 	    
-	    System.out.println("888888888888888888888888  "+exchange);
-	    return exchange.getBody();
+	   return exchange.getBody();
 		
 	}
 
