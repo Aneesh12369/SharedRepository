@@ -109,5 +109,21 @@ public class UserController {
 		return ResponseEntity.created(uri).body(rb);
 
 	}
+	
+	
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public ResponseEntity<String> createUser1(@RequestBody User user,
+			@RequestHeader HttpHeaders headers) {
+		
+		
+		return ResponseEntity.ok().body("hello");
+
+	}
+	
+	
+	
+	
+	
 
 }

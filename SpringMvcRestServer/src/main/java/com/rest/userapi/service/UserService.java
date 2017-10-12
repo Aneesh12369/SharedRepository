@@ -85,5 +85,19 @@ public class UserService {
 	   return exchange.getBody();
 		
 	}
+	
+	
+	public User modifyUser(User user){
+		String url = props.getEndPointUrl();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+		HttpEntity<User> entity = new HttpEntity<User>(user, headers);
+	    ResponseEntity<User> exchange = template.exchange(url, HttpMethod.POST, entity,User.class);
+	    
+	   return exchange.getBody();
+		
+	}
+	
 
 }
