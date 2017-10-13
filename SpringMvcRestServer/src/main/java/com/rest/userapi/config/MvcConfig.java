@@ -17,6 +17,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy
@@ -48,9 +50,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter{
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		Jackson2ObjectMapperBuilder builder = Jackson2ObjectMapperBuilder.json().indentOutput(true);
-		
-				
-		
+		builder.failOnEmptyBeans(false);
+		builder.autoDetectFields(true);
 		converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
 		super.configureMessageConverters(converters);
 	}
