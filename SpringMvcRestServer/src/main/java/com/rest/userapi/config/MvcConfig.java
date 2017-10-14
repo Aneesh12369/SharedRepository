@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 @EnableWebMvc
 @EnableAspectJAutoProxy
 @ComponentScan(basePackages={"com.rest.userapi"})
-@Import(AppProperties.class)
+//@Import(AppProperties.class)
 public class MvcConfig extends WebMvcConfigurerAdapter{
 	
 

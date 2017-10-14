@@ -1,10 +1,12 @@
 package com.rest.userapi.aspects;
 
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Set;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -71,5 +73,34 @@ public class LoggingAspect {
 		}
 
 	}
+	
+	@Before("within(com.rest.userapi.service.UserService)")
+	public void serviceLogger(JoinPoint jp){
+		
+		logger.info("callig service class method {}",jp.getSignature().getName());
+		logger.info("callig service class method with arguments {}",Arrays.toString(jp.getArgs()));
+		
+		
+	}
+	
+	
+	
+	
+	@AfterReturning(pointcut="execution(* com.rest.userapi.util.UserapiUtils.*(..))",returning="uri")
+	public void uriLogger(JoinPoint jp,URI uri){
+		
+		logger.info("callig util class method {}",jp.getSignature().getName());
+		logger.info("callig util class method with arguments {}",Arrays.toString(jp.getArgs()));
+		logger.info("callig util class method returning arguments {}",uri);
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }

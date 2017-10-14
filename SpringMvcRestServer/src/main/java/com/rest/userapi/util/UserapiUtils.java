@@ -5,6 +5,9 @@ import java.net.URI;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Component
 public class UserapiUtils {
 
@@ -18,6 +21,13 @@ public class UserapiUtils {
 			uri = UriComponentsBuilder.fromHttpUrl(url).build().toUri();
 		return uri;
 		
+	}
+	
+	
+	
+	public static String getJsonString(Object clazz) throws JsonProcessingException{
+		ObjectMapper obj = new ObjectMapper();
+		return obj.writeValueAsString(clazz);
 	}
 	
 

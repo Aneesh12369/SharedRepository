@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.rest.userapi.config.AppProperties;
-import com.rest.userapi.model.ResponseBean;
 import com.rest.userapi.model.User;
 import com.rest.userapi.util.UserapiUtils;
 
@@ -87,14 +86,15 @@ public class UserService {
 	}
 	
 	
-	public User modifyUser(User user){
+	public User modifyUser(User user,int id){
 		String url = props.getEndPointUrl();
+		URI uri = utils.getURI(url, id);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 		HttpEntity<User> entity = new HttpEntity<User>(user, headers);
-	    ResponseEntity<User> exchange = template.exchange(url, HttpMethod.POST, entity,User.class);
-	    
+	    ResponseEntity<User> exchange = template.exchange(uri, HttpMethod.PUT, entity,User.class);
+	   
 	   return exchange.getBody();
 		
 	}

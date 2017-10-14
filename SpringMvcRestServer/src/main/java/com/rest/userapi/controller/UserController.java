@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -26,6 +28,7 @@ import com.rest.userapi.service.UserService;
 import com.rest.userapi.util.UserapiUtils;
 
 @RestController
+@PreAuthorize("hasRole('USER')")
 public class UserController {
 
 	private Logger log = LoggerFactory.getLogger(UserController.class);
@@ -112,12 +115,10 @@ public class UserController {
 	
 	
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public ResponseEntity<String> createUser1(@RequestBody User user,
-			@RequestHeader HttpHeaders headers) {
-		
-		
-		return ResponseEntity.ok().body("hello");
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<User> createUser1(@RequestBody User user,@PathVariable Integer id,@RequestHeader HttpHeaders headers) {
+		User muser = service.modifyUser(user, id);
+	    return ResponseEntity.ok(muser);
 
 	}
 	

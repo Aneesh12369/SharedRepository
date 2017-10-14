@@ -7,10 +7,14 @@ import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -106,8 +110,20 @@ public class ErrorInterceptor extends ResponseEntityExceptionHandler{
 		return new ResponseEntity<Object>(rb,HttpStatus.METHOD_NOT_ALLOWED);
 	}
 	
+	@Override
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		ResponseBean<Object> rb = new ResponseBean<>();
+		rb.setErrorCode(405);
+		rb.setDescription(ex.getMessage());
+		return new ResponseEntity<Object>(rb,HttpStatus.BAD_REQUEST);
+	}
 	
-	
+	@ResponseStatus(code=HttpStatus.UNAUTHORIZED)
+	@ExceptionHandler(AccessDeniedException.class)
+    public String exception(AccessDeniedException e) {
+        return "{\"status\":\"access denied\"}";
+    } 
 	
 	
 	
