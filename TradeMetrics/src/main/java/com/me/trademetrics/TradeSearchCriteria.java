@@ -46,4 +46,20 @@ public class TradeSearchCriteria {
 		this.income = builder.income;
 		this.companyName = builder.companyName;
 	}
+
+	public Optional<String> getClient() {
+		return client;
+	}
+
+	public Optional<Product> getProduct() {
+		return product;
+	}
+
+	public Optional<Income> getIncome() {
+		return income;
+	}
+
+	public Optional<String> getCompanyName() {
+		return companyName;
+	}
 }
