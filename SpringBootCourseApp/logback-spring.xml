@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+<!--      <include resource="org/springframework/boot/logging/logback/base.xml"/> -->
+    
+
+ <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+			</Pattern>
+		</layout>
+	</appender>
+ 
+ 
+ <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <File>filename.log</File>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <!-- rollover daily -->
+         <FileNamePattern>./Logs/file.%d{yyyy-MM-dd}.%i.log.zip</FileNamePattern>
+        <!-- keep 30 days' worth of history -->
+         <MaxHistory>30</MaxHistory> -->
+        <!-- or whenever the file size reaches 10MB -->
+       <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <maxFileSize>1MB</maxFileSize>
+        </timeBasedFileNamingAndTriggeringPolicy>
+   </rollingPolicy>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+        <Pattern>%date [%thread] %-5level %logger{36} - %msg%n</Pattern>
+    </encoder>
+</appender>
+
+<logger name="com.me.client" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+</logger>
+
+
+<root level="error">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="STDOUT" />
+</root>
+</configuration>
