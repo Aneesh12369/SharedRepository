@@ -40,27 +40,34 @@ public class TradeMetricsSummary {
 		this.avg = builder.avg;
 	}
 
-	public void setMax(Optional<Long> max) {
-		this.max = max;
-	}
-
-	public void setMin(Optional<Long> min) {
-		this.min = min;
-	}
-
-	public void setAvg(Optional<BigDecimal> avg) {
-		this.avg = avg;
+	@Override
+	public String toString() {
+		return "TradeMetricsSummary [max=" + max + ", min=" + min + ", avg=" + avg + "]";
 	}
 
 	public Optional<Long> getMax() {
 		return max;
 	}
 
+	public void setMax(Optional<Long> max) {
+		this.max = max;
+	}
+
 	public Optional<Long> getMin() {
 		return min;
+	}
+
+	public void setMin(Optional<Long> min) {
+		this.min = min;
 	}
 
 	public Optional<BigDecimal> getAvg() {
 		return avg;
 	}
+
+	public void setAvg(Optional<BigDecimal> avg) {
+		this.avg = avg;
+	}
+	
+	
 }

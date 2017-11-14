@@ -56,12 +56,4 @@ public class TradeDetails {
 		this.execuitonTimeInMillis = execuitonTimeInMillis;
 	}
 
-	@Override
-	public String toString() {
-		return "TradeDetails [client=" + client + ", product=" + product + ", companyName=" + companyName + ", income="
-				+ income + ", execuitonTimeInMillis=" + execuitonTimeInMillis + "]";
-	}
-	
-	
-
 }
