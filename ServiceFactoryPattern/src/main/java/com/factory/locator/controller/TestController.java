@@ -16,11 +16,11 @@ public class TestController {
 	@Autowired
 	private RequestProcessorFactory processor;
 
-
 	@RequestMapping(value = "/findClass/{type}", method = RequestMethod.GET)
 	public String getServiceType(@PathVariable("type") String type) {
 		RequestType t = Enum.valueOf(RequestType.class, type.toUpperCase());
 		return processor.getProcessor(t).process();
+
 	}
 
 }
