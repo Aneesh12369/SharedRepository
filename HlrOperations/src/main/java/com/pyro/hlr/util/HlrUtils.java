@@ -39,7 +39,6 @@ public class HlrUtils {
 			log.info("Hitting the URL...." + url);
 
 			log.info("URL:" + url);
-			Thread.sleep(2*60000);
 			URL urlObj = new URL(url);
 			URLConnection con = urlObj.openConnection();
 			con.setConnectTimeout(60000);
@@ -68,6 +67,7 @@ public class HlrUtils {
 			resp = "1:1:ERROR";
 		}
 		Response response = new Response(msisdn, resp);
+		log.info("Response Object ********** {}",response);
 		return new AsyncResult<Response>(response);
 
 	}

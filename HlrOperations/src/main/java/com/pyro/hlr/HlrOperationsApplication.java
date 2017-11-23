@@ -61,7 +61,7 @@ public class HlrOperationsApplication implements CommandLineRunner {
 		logger.info("Arguments Passed {}", Arrays.toString(arg));
 		if (arg.length < 2) {
 			logger.info("Invalid Arguments....", arg.length);
-			logger.info("Try again [Usage] java xxx.jar  [filepath] {enablehlr|disablehlr|saveSubscription|saveContentSubscription}");
+			logger.info("Try again [Usage] java xxx.jar  [filepath] {enablehlr|disablehlr}");
 			System.exit(0);
 		} else {
 			if (arg[1].equalsIgnoreCase("enablehlr") || arg[1].equalsIgnoreCase("disablehlr") ||

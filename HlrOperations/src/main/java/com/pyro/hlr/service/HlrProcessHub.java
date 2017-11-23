@@ -35,7 +35,7 @@ public class HlrProcessHub {
 				break;
 			case "statushlr":
 				operations.setFw(getFileWriter("statushlr"));
-				operations.readAndCheckStatus(filePath);
+				//operations.readAndCheckStatus(filePath);
 				break;
 			case "savesubscription":
 				operations.setFw(getFileWriter("savesubscription"));

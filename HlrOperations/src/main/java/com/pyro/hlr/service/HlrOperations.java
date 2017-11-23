@@ -3,6 +3,7 @@ package com.pyro.hlr.service;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pyro.hlr.dao.HlrDao;
 import com.pyro.hlr.pojo.Response;
 import com.pyro.hlr.util.HlrUtils;
 
@@ -25,8 +25,8 @@ import com.pyro.hlr.util.HlrUtils;
 public class HlrOperations {
 
 	private static Logger logger = LoggerFactory.getLogger(HlrOperations.class);
-	@Autowired
-	private HlrDao dao;
+	/*@Autowired
+	private HlrDao dao;*/
 
 	@Autowired
 	private HlrUtils utils;
@@ -37,7 +37,7 @@ public class HlrOperations {
 		this.fw = fw;
 	}
 
-	public void readAndCheckStatus(File f) {
+	/*public void readAndCheckStatus(File f) {
 
 		logger.info("Reading File............");
 		boolean checkStatus = false;
@@ -67,7 +67,7 @@ public class HlrOperations {
 		}
 
 	}
-
+*/
 	public void updateStatus(File f) {
 
 		logger.info("Reading File............");
@@ -78,7 +78,8 @@ public class HlrOperations {
 		List<Future<Response>> list = new ArrayList<>();
 		try {
 			logger.info("updating the status............");
-			List<String> lines = Files.readAllLines(Paths.get(f.toURI()));
+			Charset charset = Charset.forName("ISO-8859-1");
+			List<String> lines = Files.readAllLines(Paths.get(f.toURI()),charset);
 			for (String str : lines) {
 				if (str.length() == 0) {
 					continue;
@@ -95,6 +96,7 @@ public class HlrOperations {
 				// resp = responseStatus.get(1,TimeUnit.MINUTES);
 				try {
 					Response respObj = fututre.get(1, TimeUnit.MINUTES);
+					logger.info("Response Object future return {}",respObj);
 					msisdn = respObj.getMsisdn();
 					resp = respObj.getResponse();
 					if (resp.equalsIgnoreCase("SUCCESS")) {
@@ -107,6 +109,7 @@ public class HlrOperations {
 				} catch (InterruptedException | TimeoutException | ExecutionException e) {
 					line = msisdn + "," + "not activated";
 					logger.error("Timeout Exception.......... ",e);
+					logger.error("Reeeeeeeeeeeeeeeee  {} ",line);
 					e.printStackTrace();
 				}
 				writeToFile(line);
@@ -146,7 +149,8 @@ public class HlrOperations {
 		List<Future<Response>> list = new ArrayList<>();
 		try {
 			logger.info("disabling the status............");
-			List<String> lines = Files.readAllLines(Paths.get(f.toURI()));
+			Charset charset = Charset.forName("ISO-8859-1");
+			List<String> lines = Files.readAllLines(Paths.get(f.toURI()),charset);
 			for (String str : lines) {
 				if (str.length() == 0) {
 					continue;
